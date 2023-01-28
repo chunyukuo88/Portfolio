@@ -15,15 +15,15 @@ function Language() {
     }
   };
 
-  const clickHandler = (lang) => {
+  const clickHandler = () => {
     const newLang = languageToggler(lang);
     return dispatch(updateLanguage(newLang));
   };
 
   return (
-    <>
-      <button onClick={() => clickHandler(lang)}>{lang}</button>
-    </>
+    <button onClick={clickHandler}>
+      {lang}
+    </button>
   );
 }
 
