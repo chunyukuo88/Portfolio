@@ -2,8 +2,9 @@ import { BrowserRouter as Router, Routes, Route, useNavigate  } from 'react-rout
 import './App.css';
 import { Counter } from './features/counter/Counter.jsx';
 import { store } from './globalState/store.js';
-import { Provider } from 'react-redux'
+import {Provider, useSelector} from 'react-redux'
 import Language from './features/language/Language';
+import strings from "./common/strings.js";
 
 function App() {
   return (
@@ -34,12 +35,13 @@ function CounterPage(){
 
 function Home(){
   const navigate = useNavigate();
+  const language = useSelector((state) => state.language.value);
   const goToCounter = () => navigate('/counter');
   return (
     <>
-      <button onClick={goToCounter}>go to counter</button>
+      <button onClick={goToCounter}>{strings.goToCounter[language]}</button>
       <div>
-        HELLO THIS IS HOMEPAGE , wlecome to inteweb
+        {strings.homeGreeting[language]}
       </div>
     </>
   );
