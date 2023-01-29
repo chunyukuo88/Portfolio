@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route,  } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate  } from 'react-router-dom';
 import './App.css';
 import { Counter } from './features/counter/Counter.jsx';
 import { store } from './globalState/store.js';
@@ -21,8 +21,11 @@ function App() {
 }
 
 function CounterPage(){
+  const navigate = useNavigate();
+  const goToHome = () => navigate('/');
   return (
     <>
+      <button onClick={goToHome}>HOME</button>
       <Language />
       <Counter/>
     </>
@@ -30,10 +33,15 @@ function CounterPage(){
 }
 
 function Home(){
+  const navigate = useNavigate();
+  const goToCounter = () => navigate('/counter');
   return (
-    <div>
-      HELLO THIS IS HOMEPAGE , wlecome to inteweb
-    </div>
+    <>
+      <button onClick={goToCounter}>go to counter</button>
+      <div>
+        HELLO THIS IS HOMEPAGE , wlecome to inteweb
+      </div>
+    </>
   );
 }
 
