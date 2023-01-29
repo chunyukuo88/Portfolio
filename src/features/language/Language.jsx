@@ -1,28 +1,29 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateLanguage } from './languageSlice';
+import strings from '../../common/strings.js';
 
 function Language() {
-  const lang = useSelector((state) => state.language.value);
+  const language = useSelector((state) => state.language.value);
   const dispatch = useDispatch();
 
-  const languageToggler = (language) => {
-    switch (language) {
+  const languageToggler = (currentLanguage) => {
+    switch (currentLanguage) {
       case 'english': return 'chinese';
       case 'chinese': return 'russian';
       case 'russian': return 'english';
       default: return 'chinese';
-    }
+    };
   };
 
   const clickHandler = () => {
-    const newLang = languageToggler(lang);
+    const newLang = languageToggler(language);
     return dispatch(updateLanguage(newLang));
   };
 
   return (
     <button onClick={clickHandler}>
-      {lang}
+      {strings.language[language]}
     </button>
   );
 }
