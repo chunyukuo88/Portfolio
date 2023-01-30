@@ -1,12 +1,19 @@
 const strings = {
+  CHINESE: 'chinese',
   decrement: {
     chinese: '遞減',
     english: 'decrement',
     russian: 'уменьшение',
   },
+  email: {
+    chinese: '邮箱地址',
+    english: 'Email',
+    russian: 'е-мейл',
+  },
+  ENGLISH: 'english',
   goToCounter: {
     chinese: '計數機',
-    english: 'go to counter',
+    english: 'Counter',
     russian: 'счетная машина',
   },
   homeGreeting: {
@@ -29,6 +36,22 @@ const strings = {
     english: 'English',
     russian: 'Русский',
   },
+  login: {
+    chinese: '登录',
+    english: 'Log in',
+    russian: 'авторизоваться',
+  },
+  logout: {
+    chinese: '登出',
+    english: 'Log out',
+    russian: 'выйти',
+  },
+  password: {
+    chinese: '密码',
+    english: 'Password',
+    russian: 'пароль',
+  },
+  RUSSIAN: 'russian',
 };
 
 export default strings;

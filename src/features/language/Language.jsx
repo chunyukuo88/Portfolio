@@ -6,13 +6,13 @@ import strings from '../../common/strings.js';
 function Language() {
   const language = useSelector((state) => state.language.value);
   const dispatch = useDispatch();
-
+  const { CHINESE, ENGLISH, RUSSIAN } = strings;
   const languageToggler = (currentLanguage) => {
     switch (currentLanguage) {
-      case 'english': return 'chinese';
-      case 'chinese': return 'russian';
-      case 'russian': return 'english';
-      default: return 'chinese';
+      case ENGLISH: return CHINESE;
+      case CHINESE: return RUSSIAN;
+      case RUSSIAN: return ENGLISH;
+      default: return ENGLISH;
     };
   };
 

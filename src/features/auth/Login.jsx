@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { supabaseClient } from './client.js';
 import { updateAuth } from './authSlice.js';
 import { useNavigate } from 'react-router-dom';
+import strings from '../../common/strings.js';
 
 export const Login = () => {
+  const language = useSelector((state) => state.language.value);
   const auth = useSelector((state) => state.auth?.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,13 +30,13 @@ export const Login = () => {
 
   return (
     <div>
-      <p>Sign in</p>
+      <p>{strings.login[language]}</p>
       <form action='?/login' method='POST' className='auth-form'>
-        <label htmlFor=''> Email </label>
+        <label htmlFor=''> {strings.email[language]} </label>
         <input onChange={emailHandler} type='text' name='email'/>
-        <label htmlFor=''> Password </label>
+        <label htmlFor=''> {strings.password[language]} </label>
         <input onChange={passwordHandler} type='password' name='password'/>
-        <button onClick={(e) => submissionHandler(e)} type='submit' className='btn btn-primary'>Login</button>
+        <button onClick={(e) => submissionHandler(e)} type='submit' className='btn btn-primary'>{strings.login[language]}</button>
       </form>
     </div>
   );

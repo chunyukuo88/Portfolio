@@ -6,6 +6,9 @@ import Language from './features/language/Language';
 import strings from './common/strings.js';
 import { Login } from './features/auth/Login.jsx';
 import { routes } from './routes.js';
+import { supabaseClient } from './features/auth/client.js';
+import { updateAuth } from './features/auth/authSlice.js';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
@@ -13,6 +16,7 @@ function App() {
     <div className='App'>
       <Provider store={store}>
         <Router>
+          <Header />
           <Routes>
             <Route exact path={routes.index} element={<HomePage />}/>
             <Route exact path={routes.counter} element={<CounterPage />}/>
@@ -24,41 +28,51 @@ function App() {
   )
 }
 
-function LoginPage(){
+function Header(){
   const navigate = useNavigate();
+  const language = useSelector((state) => state.language.value);
+  const auth = useSelector((state) => state.auth.value);
+  const goToCounter = () => navigate(routes.counter);
+  const goToLogin = () => navigate(routes.login);
   const goToHome = () => navigate(routes.index);
+  const logoutHandler = async () => {
+    await supabaseClient.auth.signOut();
+    window.localStorage.clear();
+  };
+  return (
+    <header>
+      <Language />
+      <button onClick={goToHome}>HOME</button>
+      <button onClick={goToCounter}>{strings.goToCounter[language]}</button>
+      {
+        auth?.session?.user
+          ? <button onClick={logoutHandler}>{strings.logout[language]}</button>
+          : <button onClick={goToLogin}>{strings.login[language]}</button>
+      }
+    </header>
+  );
+}
+
+function LoginPage(){
   return (
     <>
-      <button onClick={goToHome}>HOME</button>
       <Login />
     </>
   );
 }
 
 function CounterPage(){
-  const navigate = useNavigate();
-  const goToHome = () => navigate(routes.index);
   return (
     <>
-      <button onClick={goToHome}>HOME</button>
-      <Language />
       <Counter/>
     </>
   );
 }
 
 function HomePage(){
-  const navigate = useNavigate();
   const language = useSelector((state) => state.language.value);
-  const auth = useSelector((state) => state.auth.value);
-  console.log('HOMEPAGE - auth: ', auth);
-  console.dir(auth);
-  const goToCounter = () => navigate(routes.counter);
-  const goToLogin = () => navigate(routes.login);
   return (
     <>
-      <button onClick={goToCounter}>{strings.goToCounter[language]}</button>
-      <button onClick={goToLogin}>Login</button>
       <div>
         {strings.homeGreeting[language]}
       </div>
