@@ -1,24 +1,28 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import {supabaseClient} from './client.js';
+import { supabaseClient } from './client.js';
 import { updateAuth } from './authSlice.js';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
   const auth = useSelector((state) => state.auth?.value);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const supabaseClient = useSupabaseClient();
 
   const emailHandler = (event) => setEmail(event.target.value);
 
   const passwordHandler = (event) => setPassword(event.target.value);
 
-  const submissionHandler = async () => {
+  const submissionHandler = async (event) => {
+    event.preventDefault();
     const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-    if (error) throw Error('There was a problem.');
-    console.log('data: ', data);
+    if (error) {
+      console.error('error: ', error);
+      throw Error('There was a problem.');
+    }
+    navigate('/');
     return dispatch(updateAuth(auth, data));
   };
 
@@ -30,7 +34,7 @@ export const Login = () => {
         <input onChange={emailHandler} type='text' name='email'/>
         <label htmlFor=''> Password </label>
         <input onChange={passwordHandler} type='password' name='password'/>
-        <button onClick={submissionHandler} type='submit' className='btn btn-primary'>Login</button>
+        <button onClick={(e) => submissionHandler(e)} type='submit' className='btn btn-primary'>Login</button>
       </form>
     </div>
   );

@@ -1,4 +1,5 @@
 export const routes = {
   index: "/",
-  faq: "faq",
+  counter: "/counter",
+  login: '/login',
 };

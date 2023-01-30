@@ -6,12 +6,12 @@ export const navigationSlice = createSlice({
     value: '/',
   },
   reducers: {
-    goToPage: (state, action) => {
+    navigation: (state, action) => {
       state.value = action.payload;
     },
   },
 });
 
-export const { goToPage } = navigationSlice.actions;
+export const { navigation } = navigationSlice.actions;
 
 export default navigationSlice.reducer;
