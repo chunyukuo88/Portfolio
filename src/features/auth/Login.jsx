@@ -23,7 +23,7 @@ export const Login = () => {
       throw Error('There was a problem.');
     }
     navigate('/');
-    return dispatch(updateAuth(auth, data));
+    return dispatch(updateAuth(data));
   };
 
   return (

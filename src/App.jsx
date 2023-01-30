@@ -49,12 +49,10 @@ function CounterPage(){
 
 function HomePage(){
   const navigate = useNavigate();
-  const language = useSelector((state) => {
-    console.log('state: ', state);
-    return state.language.value
-  });
+  const language = useSelector((state) => state.language.value);
   const auth = useSelector((state) => state.auth.value);
-  console.log('HOMEPAGE - language: ', language);
+  console.log('HOMEPAGE - auth: ', auth);
+  console.dir(auth);
   const goToCounter = () => navigate(routes.counter);
   const goToLogin = () => navigate(routes.login);
   return (
