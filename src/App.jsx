@@ -42,12 +42,12 @@ function Header(){
       <Language />
       <button onClick={() => navigate(routes.index)}>🏠</button>
       <button onClick={() => navigate(routes.counter)}>{strings.goToCounter[language]}</button>
+      {auth?.session?.user && <button onClick={() => navigate(routes.profile)}>Profile</button>}
       {
         auth?.session?.user
           ? <button onClick={logoutHandler}>{strings.logout[language]}</button>
           : <button onClick={() => navigate(routes.login)}>{strings.login[language]}</button>
       }
-      {auth?.session?.user && <button onClick={() => navigate(routes.profile)}>Profile</button>}
     </header>
   );
 }
