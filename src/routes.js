@@ -1,5 +1,6 @@
 export const routes = {
-  index: "/",
-  counter: "/counter",
+  counter: '/counter',
+  index: '/',
   login: '/login',
+  profile: '/profile',
 };

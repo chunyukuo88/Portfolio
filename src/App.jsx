@@ -2,13 +2,12 @@ import { BrowserRouter as Router, Routes, Route, useNavigate  } from 'react-rout
 import { Counter } from './features/counter/Counter.jsx';
 import { store } from './globalState/store.js';
 import { Provider, useSelector } from 'react-redux'
+import { RequireAuth } from './components/RequireAuth.jsx';
 import Language from './features/language/Language';
-import strings from './common/strings.js';
 import { Login } from './features/auth/Login.jsx';
 import { routes } from './routes.js';
 import { supabaseClient } from './features/auth/client.js';
-import { updateAuth } from './features/auth/authSlice.js';
-import { useState } from 'react';
+import strings from './common/strings.js';
 import './App.css';
 
 function App() {
@@ -21,6 +20,7 @@ function App() {
             <Route exact path={routes.index} element={<HomePage />}/>
             <Route exact path={routes.counter} element={<CounterPage />}/>
             <Route exact path={routes.login} element={<LoginPage />}/>
+            <Route exact path={routes.profile} element={<RequireAuth><Profile /></RequireAuth>} />
           </Routes>
         </Router>
       </Provider>
@@ -32,9 +32,6 @@ function Header(){
   const navigate = useNavigate();
   const language = useSelector((state) => state.language.value);
   const auth = useSelector((state) => state.auth.value);
-  const goToCounter = () => navigate(routes.counter);
-  const goToLogin = () => navigate(routes.login);
-  const goToHome = () => navigate(routes.index);
   const logoutHandler = async () => {
     await supabaseClient.auth.signOut();
     window.localStorage.clear();
@@ -43,15 +40,20 @@ function Header(){
   return (
     <header>
       <Language />
-      <button onClick={goToHome}>🏠</button>
-      <button onClick={goToCounter}>{strings.goToCounter[language]}</button>
+      <button onClick={() => navigate(routes.index)}>🏠</button>
+      <button onClick={() => navigate(routes.counter)}>{strings.goToCounter[language]}</button>
       {
         auth?.session?.user
           ? <button onClick={logoutHandler}>{strings.logout[language]}</button>
-          : <button onClick={goToLogin}>{strings.login[language]}</button>
+          : <button onClick={() => navigate(routes.login)}>{strings.login[language]}</button>
       }
+      {auth?.session?.user && <button onClick={() => navigate(routes.profile)}>Profile</button>}
     </header>
   );
+}
+
+function Profile(){
+  return <>PROFILE! You are authenticated.</>;
 }
 
 function LoginPage(){
