@@ -38,11 +38,12 @@ function Header(){
   const logoutHandler = async () => {
     await supabaseClient.auth.signOut();
     window.localStorage.clear();
+    window.location.reload();
   };
   return (
     <header>
       <Language />
-      <button onClick={goToHome}>HOME</button>
+      <button onClick={goToHome}>🏠</button>
       <button onClick={goToCounter}>{strings.goToCounter[language]}</button>
       {
         auth?.session?.user
@@ -55,28 +56,28 @@ function Header(){
 
 function LoginPage(){
   return (
-    <>
+    <div className='page'>
       <Login />
-    </>
+    </div>
   );
 }
 
 function CounterPage(){
   return (
-    <>
+    <div className='page counter'>
       <Counter/>
-    </>
+    </div>
   );
 }
 
 function HomePage(){
   const language = useSelector((state) => state.language.value);
+  const auth = useSelector((state) => state.auth.value);
   return (
-    <>
-      <div>
-        {strings.homeGreeting[language]}
-      </div>
-    </>
+    <div className='page'>
+      <p>{auth.user?.email && `Greetings, ${auth.user.email}!`}</p>
+      <p>{strings.homeGreeting[language]}</p>
+    </div>
   );
 }
 

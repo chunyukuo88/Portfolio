@@ -1,7 +1,9 @@
 header {
-  position: fixed;
-  top: 50px;
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.page {
+  text-align: center;
 }

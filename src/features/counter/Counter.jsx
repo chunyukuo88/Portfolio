@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { decrement, increment, incrementByAmount } from './counterSlice.js';
 import strings from '../../common/strings.js';
@@ -9,35 +9,33 @@ export function Counter() {
   const language = useSelector((state) => state.language.value);
   const dispatch = useDispatch();
   return (
-    <div>
-      <div>
-        <button
-          aria-label='Decrement value'
-          onClick={() => dispatch(decrement())}
-        >
-          {strings.decrement[language]}
-        </button>
-        <button
-          aria-label='Increment value'
-          onClick={() => dispatch(increment())}
-        >
-          {strings.increment[language]}
-        </button>
-        <span>{count}</span>
-        <button
-          aria-label='Increment value by amount'
-          onClick={() => dispatch(incrementByAmount(incrementVal))}
-        >
-          {strings.incrementByAmount[language]}
-        </button>
-        <input
-          type="number"
-          value={incrementVal}
-          onChange={(event) => {
-            const { value } = event.target;
-            setIncrementVal(parseInt(value));
-          }}/>
-      </div>
-    </div>
+    <main>
+      <button
+        aria-label='Decrement value'
+        onClick={() => dispatch(decrement())}
+      >
+        {strings.decrement[language]}
+      </button>
+      <button
+        aria-label='Increment value'
+        onClick={() => dispatch(increment())}
+      >
+        {strings.increment[language]}
+      </button>
+      <span>{count}</span>
+      <button
+        aria-label='Increment value by amount'
+        onClick={() => dispatch(incrementByAmount(incrementVal))}
+      >
+        {strings.incrementByAmount[language]}
+      </button>
+      <input
+        type="number"
+        value={incrementVal}
+        onChange={(event) => {
+          const { value } = event.target;
+          setIncrementVal(parseInt(value));
+        }}/>
+    </main>
   );
 }
